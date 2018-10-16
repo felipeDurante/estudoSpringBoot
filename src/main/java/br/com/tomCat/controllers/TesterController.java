@@ -14,10 +14,6 @@ public class TesterController {
 
 	@RequestMapping("/listaconvidados")
 	public String listaConvidados(Model model) {
-
-		// Iterable<PdvEntity> convidados = pdvService.getThenPdv();
-		// model.addAttribute("convidados", convidados);
-
 		return "listaconvidados";
 	}
 

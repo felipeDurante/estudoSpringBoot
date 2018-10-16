@@ -6,6 +6,8 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,6 +21,10 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import br.com.tomCat.entitys.Usuario;
+import br.com.tomCat.repositories.UsuarioRepository;
+import br.com.tomCat.security.SenhaUtils;
+import br.com.tomCat.security.enums.PerfilEnum;
 import oracle.jdbc.pool.OracleDataSource;
 
 @SpringBootApplication
@@ -55,7 +61,7 @@ public class EstudoSpringApplication {
 
 	private Properties additionalProperties() {
 		Properties properties = new Properties();
-		properties.setProperty("hibernate.hbm2ddl.auto", "update");
+		properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.OracleDialect");
 		properties.put("hibernate.cache.use_second_level_cache", true);
 		properties.put("hibernate.cache.use_query_cache", true);
@@ -89,6 +95,28 @@ public class EstudoSpringApplication {
 	public PlatformTransactionManager transactionManager() {
 		EntityManagerFactory factory = entityManagerFactory().getObject();
 		return new JpaTransactionManager(factory);
+	}
+
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+
+	@Bean
+	public CommandLineRunner commandLineRunner() {
+		return args -> {
+
+			Usuario usuario = new Usuario();
+			usuario.setEmail("usuario@email.com");
+			usuario.setPerfil(PerfilEnum.ROLE_USUARIO);
+			usuario.setSenha(SenhaUtils.gerarBCrypt("123456"));
+			this.usuarioRepository.save(usuario);
+
+			Usuario admin = new Usuario();
+			admin.setEmail("admin@email.com");
+			admin.setPerfil(PerfilEnum.ROLE_ADMIN);
+			admin.setSenha(SenhaUtils.gerarBCrypt("123456"));
+			this.usuarioRepository.save(admin);
+
+		};
 	}
 
 }

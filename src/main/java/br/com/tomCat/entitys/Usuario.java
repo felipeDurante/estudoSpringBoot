@@ -1,67 +1,42 @@
 package br.com.tomCat.entitys;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import br.com.tomCat.security.enums.PerfilEnum;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "USUARIO")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Usuario implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5417355136835981539L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	private String nome;
-	private int idade;
+	@Column(name = "email", nullable = false)
+	private String email;
 
-	@ManyToMany
-	private Set<Role> roles;
+	@Column(name = "senha", nullable = false, length = 100)
+	private String senha;
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	@Column(name = "nome", nullable = false, length = 50)
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	@Column(name = "idade", nullable = false, length = 10)
-	public int getIdade() {
-		return idade;
-	}
-
-	public void setIdade(int idade) {
-		this.idade = idade;
-	}
-
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
+	@Enumerated(EnumType.STRING)
+	@Column(name = "perfil", nullable = false)
+	private PerfilEnum perfil;
 
 }
