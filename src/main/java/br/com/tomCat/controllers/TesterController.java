@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class TesterController {
 
-	@RequestMapping("/")
-	public String ola() {
-		return "index";
-	}
+//	@RequestMapping("/")
+//	public String ola() {
+//		return "index";
+//	}
 
 	@RequestMapping("/listaconvidados")
 	public String listaConvidados(Model model) {
