@@ -2,14 +2,17 @@ package br.com.tomCat.configuracao;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = { 
+//@ComponentScan(basePackages = {
+
+//		"br.com.tomCat.entitys", 
 //		"br.com.tomCat.repositories", 
-		"br.com.tomCat.controllers", 
+//		"br.com.tomCat.controllers",
 //		"br.com.tomCat.services", 
-//		"br.com.tomCat.servicesImpl",
+//		"br.com.tomCat.servicesImpl", 
 //		"io.swagger", 
 //		"io.swagger.api",
 //		"io.swagger.configuration",
@@ -21,9 +24,9 @@ import org.springframework.context.annotation.ComponentScan;
 //		"br.com.tomCat.security.util",
 //		"br.com.tomCat.security.JwtUser",
 //		"br.com.tomCat.security.controller",
-		})
-//@EnableJpaRepositories(basePackages = { "br.com.tomCat.repositories" })
-//@PropertySource("classpath:application.properties")
+//})
+@EnableJpaRepositories(basePackages = { "br.com.tomCat.repositories" })
+@PropertySource("classpath:application.properties")
 //@EnableAutoConfiguration
 public class Application {
 
@@ -89,26 +92,24 @@ public class Application {
 //		return new JpaTransactionManager(factory);
 //	}
 
-//	@Autowired
-//	private UsuarioRepository usuarioRepository;
-//
 //	@Bean
-//	public CommandLineRunner commandLineRunner() {
+//	CommandLineRunner init(UsuarioRepository userRepository, PasswordEncoder passwordEncoder) {
 //		return args -> {
-//
-//			Usuario usuario = new Usuario();
-//			usuario.setEmail("usuario@email.com");
-//			usuario.setPerfil(PerfilEnum.ROLE_USUARIO);
-//			usuario.setSenha(SenhaUtils.gerarBCrypt("123456"));
-//			this.usuarioRepository.save(usuario);
-//
-//			Usuario admin = new Usuario();
-//			admin.setEmail("admin@email.com");
-//			admin.setPerfil(PerfilEnum.ROLE_ADMIN);
-//			admin.setSenha(SenhaUtils.gerarBCrypt("123456"));
-//			this.usuarioRepository.save(admin);
-//
+//			initUsers(userRepository, passwordEncoder);
 //		};
+//	}
+
+//	private void initUsers(UsuarioRepository userRepository, PasswordEncoder passwordEncoder) {
+//		System.out.println("init users");
+////		Usuario admin = new Usuario();
+////		admin.setEmail("admin@helpdesk.com");
+////		admin.setSenha(passwordEncoder.encode("123456"));
+////		admin.setPerfil(PerfilEnum.ROLE_ADMIN);
+////
+////		Usuario user = userRepository.findByEmail("admin@helpdesk.com");
+////		if (user == null) {
+////			userRepository.save(admin);
+////		}
 //	}
 
 }

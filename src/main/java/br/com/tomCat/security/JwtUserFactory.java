@@ -10,7 +10,6 @@ import br.com.tomCat.entitys.Usuario;
 import br.com.tomCat.security.JwtUser.JwtUser;
 import br.com.tomCat.security.enums.PerfilEnum;
 
-
 public class JwtUserFactory {
 
 	private JwtUserFactory() {
@@ -24,7 +23,7 @@ public class JwtUserFactory {
 	 */
 	public static JwtUser create(Usuario usuario) {
 		return new JwtUser(usuario.getId(), usuario.getEmail(), usuario.getSenha(),
-				mapToGrantedAuthorities(usuario.getPerfil()));
+				mapToGrantedAuthorities(PerfilEnum.ROLE_ADMIN));
 	}
 
 	/**

@@ -25,13 +25,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 		try {
 			return repo.save(usuario);
 		} catch (RuntimeException e) {
+			System.out.println(e.getMessage());
 			throw new CadastroException("Não foi possível gravar o usuário. Verifique os dados");
 		}
 
 	}
 
 	@Override
-	public Iterable<Usuario> findByEmail(String email) {
+	public Usuario findByEmail(String email) {
 		return repo.findByEmail(email);
 	}
 

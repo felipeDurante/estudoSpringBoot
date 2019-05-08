@@ -6,5 +6,5 @@ public interface UsuarioService {
 
 	Usuario gravarUsuario(Usuario usuario);
 
-	Iterable<Usuario> findByEmail(String email);
+	Usuario findByEmail(String email);
 }
